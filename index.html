@@ -604,11 +604,7 @@ document
       }
 
 
-      if(data.session){
-
-  await supabaseClient
-  .from("profiles")
-  .insert([
+      if(data.session)([
     {
       full_name: name,
       email: email,
