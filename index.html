@@ -679,17 +679,22 @@ document
     try{
 
       const {
-        data,
-        error
-      } =
-      await supabaseClient.auth
-      .signInWithPassword({
+  data,
+  error
+} =
+await supabaseClient.auth.signUp({
 
-        email:email,
+  email: email,
 
-        password:password
+  password: password,
 
-      });
+  options:{
+    data:{
+      full_name:name
+    }
+  }
+
+});
 
 
       if(error){
