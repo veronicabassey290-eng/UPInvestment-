@@ -59,3 +59,125 @@
       <h3>Standard</h3>
       <h1>$500</h1>
       <p>
+<section id="account">
+
+<h2>Create Account</h2>
+
+<form id="signupForm">
+
+<input
+type="text"
+id="name"
+placeholder="Full Name"
+required>
+
+<input
+type="email"
+id="email"
+placeholder="Email Address"
+required>
+
+<input
+type="password"
+id="password"
+placeholder="Password"
+required>
+
+<button class="btn" type="submit">
+Create Account
+</button>
+
+</form>
+
+<p id="signupMessage"></p>
+
+<hr>
+
+<h2>Login</h2>
+
+<form id="loginForm">
+
+<input
+type="email"
+id="loginEmail"
+placeholder="Email Address"
+required>
+
+<input
+type="password"
+id="loginPassword"
+placeholder="Password"
+required>
+
+<button class="btn" type="submit">
+Login
+</button>
+
+</form>
+
+<p id="loginMessage"></p>
+
+</section>
+
+<section id="dashboard" style="display:none;">
+
+<h2>Your Dashboard</h2>
+
+<p id="userEmail"></p>
+
+<div class="card">
+<h3>Selected Plan</h3>
+<p id="selectedPlan">No plan selected.</p>
+</div>
+
+<div class="card">
+<h3>Investment History</h3>
+<p>No transactions available.</p>
+</div>
+
+<div class="card">
+<h3>Deposit Requests</h3>
+<p>No deposits yet.</p>
+</div>
+
+<div class="card">
+<h3>Withdrawal Requests</h3>
+<p>No withdrawals yet.</p>
+</div>
+
+<button class="btn" onclick="logout()">
+Logout
+</button>
+
+</section>
+
+<section id="about">
+
+<h2>About UPInvestment</h2>
+
+<p>
+UPInvestment provides users with an online dashboard to review available investment plans and manage their account. Investment products involve risk. Any returns depend on actual investment performance and are not guaranteed.
+</p>
+
+</section>
+
+<section id="contact">
+
+<h2>Contact Support</h2>
+
+<p>Email: <strong>emmanuelthankgod2009@gmail.com</strong></p>
+
+</section>
+
+<footer>
+
+<p>© 2026 UPInvestment. All rights reserved.</p>
+
+<p>Investment involves risk. Returns are not guaranteed.</p>
+
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+  </html>
