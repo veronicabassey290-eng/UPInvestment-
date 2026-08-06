@@ -606,8 +606,24 @@ document
 
       if(data.session){
 
-        message.textContent =
-        "Account created successfully.";
+  await supabaseClient
+  .from("profiles")
+  .insert([
+    {
+      full_name: name,
+      email: email,
+      created_at: new Date()
+    }
+  ]);
+
+  message.textContent =
+  "Account created successfully.";
+
+  showDashboard(
+    data.user
+  );
+
+  }
 
         showDashboard(
           data.user
