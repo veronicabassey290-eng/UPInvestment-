@@ -213,20 +213,40 @@ document.getElementById("signupForm")
 
   const { error } =
   await db.auth.signUp({
-    email: email,
-    password: password,
-    options:{
-      data:{
-        full_name:name
+   document.getElementById("signupForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const message = document.getElementById("message");
+  message.textContent = "Creating account...";
+
+  try {
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+
+    const result = await db.auth.signUp({
+      email: email,
+      password: password,
+      options: {
+        data: {
+          full_name: name
+        }
       }
+    });
+
+    if (result.error) {
+      message.textContent = "Error: " + result.error.message;
+      return;
     }
-  });
 
-  if(error){
-    message.textContent = error.message;
-    return;
+    message.textContent =
+      "Account created. Check your email to confirm your account.";
+
+  } catch (err) {
+    message.textContent =
+      "Connection error: " + err.message;
   }
-
+});
   message.textContent =
   "Account created. Check your email to confirm your account.";
 
