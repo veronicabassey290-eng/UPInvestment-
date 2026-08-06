@@ -30,10 +30,7 @@ input{width:100%;padding:13px;margin:8px 0 15px;border:1px solid #d8dee8;border-
 .box{background:#081426;color:white;padding:30px;border-radius:12px;max-width:800px;margin:auto}
 .notice{background:#fff3cd;padding:15px;border-radius:7px;margin-top:20px;font-size:13px}
 footer{background:#081426;color:white;text-align:center;padding:30px}
-@media(max-width:600px){
-  .hero h1{font-size:32px}
-  nav a{font-size:12px;margin-left:8px}
-}
+@media(max-width:600px){.hero h1{font-size:32px}nav a{font-size:12px;margin-left:8px}}
 </style>
 </head>
 
@@ -51,8 +48,8 @@ footer{background:#081426;color:white;text-align:center;padding:30px}
 <section class="hero" id="home">
   <h1>Welcome to UPInvestment</h1>
   <p>
-    Explore available plans, create an account and manage your
-    account securely.
+    Explore investment opportunities, manage your account and
+    review available investment plans in one place.
   </p>
   <a href="#account">
     <button class="btn">Get Started</button>
@@ -60,7 +57,7 @@ footer{background:#081426;color:white;text-align:center;padding:30px}
 </section>
 
 <section id="plans">
-  <h2 class="title">Available Plans</h2>
+  <h2 class="title">Investment Plans</h2>
 
   <div class="plans">
 
@@ -74,29 +71,29 @@ footer{background:#081426;color:white;text-align:center;padding:30px}
     <div class="card">
       <h3>Standard</h3>
       <div class="amount">$500</div>
-      <p>Standard plan</p>
+      <p>Standard investment level</p>
       <button class="btn" onclick="selectPlan(500)">Select</button>
     </div>
 
     <div class="card">
       <h3>Premium</h3>
       <div class="amount">$1,000</div>
-      <p>Higher plan</p>
+      <p>Higher investment level</p>
       <button class="btn" onclick="selectPlan(1000)">Select</button>
     </div>
 
     <div class="card">
       <h3>Elite</h3>
       <div class="amount">$10,000</div>
-      <p>Highest listed plan</p>
+      <p>Highest listed level</p>
       <button class="btn" onclick="selectPlan(10000)">Select</button>
     </div>
 
   </div>
 
   <div class="notice">
-    Investment involves risk. Returns are not guaranteed. Review
-    all risks, fees and terms before making financial decisions.
+    Investment involves risk. Returns are not guaranteed.
+    Review all risks, fees and terms before investing.
   </div>
 </section>
 
@@ -109,29 +106,14 @@ footer{background:#081426;color:white;text-align:center;padding:30px}
     <form id="signupForm">
 
       <label>Full Name</label>
-      <input
-        id="name"
-        type="text"
-        required
-        placeholder="Your full name"
-      >
+      <input id="name" type="text" required placeholder="Your full name">
 
       <label>Email</label>
-      <input
-        id="email"
-        type="email"
-        required
-        placeholder="Your email"
-      >
+      <input id="email" type="email" required placeholder="Your email">
 
       <label>Password</label>
-      <input
-        id="password"
-        type="password"
-        required
-        minlength="6"
-        placeholder="At least 6 characters"
-      >
+      <input id="password" type="password" required
+             minlength="6" placeholder="At least 6 characters">
 
       <button class="btn" type="submit">
         Create Account
@@ -147,19 +129,11 @@ footer{background:#081426;color:white;text-align:center;padding:30px}
 
     <form id="loginForm">
 
-      <input
-        id="loginEmail"
-        type="email"
-        required
-        placeholder="Email"
-      >
+      <input id="loginEmail" type="email"
+             required placeholder="Email">
 
-      <input
-        id="loginPassword"
-        type="password"
-        required
-        placeholder="Password"
-      >
+      <input id="loginPassword" type="password"
+             required placeholder="Password">
 
       <button class="btn" type="submit">
         Login
@@ -168,8 +142,8 @@ footer{background:#081426;color:white;text-align:center;padding:30px}
     </form>
 
     <div class="notice">
-      Your login is handled through Supabase authentication.
-      Never share your password.
+      Your account information is handled through Supabase
+      authentication. Never share your password.
     </div>
 
   </div>
@@ -187,13 +161,11 @@ footer{background:#081426;color:white;text-align:center;padding:30px}
     <p>Account balance: <strong>$0.00</strong></p>
     <p>Invested: <strong>$0.00</strong></p>
 
-    <button class="btn" onclick="logout()">
-      Logout
-    </button>
+    <button class="btn" onclick="logout()">Logout</button>
 
     <div class="notice">
-      This dashboard does not create investment returns or
-      balances automatically.
+      This is an account interface only. No investment returns
+      or balances are created automatically.
     </div>
 
   </div>
@@ -237,8 +209,7 @@ document.getElementById("signupForm")
   const password =
   document.getElementById("password").value;
 
-  message.textContent =
-  "Creating account...";
+  message.textContent = "Creating account...";
 
   const { error } =
   await db.auth.signUp({
@@ -252,8 +223,7 @@ document.getElementById("signupForm")
   });
 
   if(error){
-    message.textContent =
-    error.message;
+    message.textContent = error.message;
     return;
   }
 
@@ -274,8 +244,7 @@ document.getElementById("loginForm")
   const password =
   document.getElementById("loginPassword").value;
 
-  message.textContent =
-  "Logging in...";
+  message.textContent = "Logging in...";
 
   const { data, error } =
   await db.auth.signInWithPassword({
@@ -284,8 +253,7 @@ document.getElementById("loginForm")
   });
 
   if(error){
-    message.textContent =
-    error.message;
+    message.textContent = error.message;
     return;
   }
 
@@ -345,11 +313,7 @@ db.auth.getSession()
 .then(function(result){
 
   if(result.data.session){
-
-    showDashboard(
-      result.data.session.user
-    );
-
+    showDashboard(result.data.session.user);
   }
 
 });
@@ -357,4 +321,4 @@ db.auth.getSession()
 </script>
 
 </body>
-        </html>
+</html>
