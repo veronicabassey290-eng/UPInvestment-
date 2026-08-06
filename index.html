@@ -3,47 +3,290 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>UPInvestment</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#172033}
-header{background:#081426;color:white;padding:18px 6%;display:flex;justify-content:space-between;align-items:center}
-.logo{font-size:23px;font-weight:bold}
-.logo span{color:#4d9aff}
-nav a{color:white;text-decoration:none;margin-left:18px}
-.hero{background:linear-gradient(135deg,#081426,#12315c);color:white;text-align:center;padding:70px 20px}
-.hero h1{font-size:40px}
-.hero p{max-width:650px;margin:auto;line-height:1.7}
-section{padding:55px 6%}
-.auth{max-width:450px;margin:auto;background:white;padding:30px;border-radius:12px;box-shadow:0 5px 20px #dce2eb}
-input{width:100%;padding:13px;margin:8px 0 15px;border:1px solid #d8dee8;border-radius:7px}
-button{width:100%;border:0;border-radius:7px;padding:13px;background:#1769e0;color:white;font-weight:bold;cursor:pointer;margin-top:8px}
-.message{min-height:25px;line-height:1.5}
-#dashboard{display:none}
-.box{background:#081426;color:white;padding:30px;border-radius:12px;max-width:700px;margin:auto}
-footer{background:#081426;color:white;text-align:center;padding:30px}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f7fb;
+  color:#172033;
+}
+
+header{
+  background:#081426;
+  color:white;
+  padding:18px 6%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-size:23px;
+  font-weight:bold;
+}
+
+.logo span{
+  color:#4d9aff;
+}
+
+nav a{
+  color:white;
+  text-decoration:none;
+  margin-left:18px;
+}
+
+.hero{
+  background:linear-gradient(135deg,#081426,#12315c);
+  color:white;
+  text-align:center;
+  padding:80px 20px;
+}
+
+.hero h1{
+  font-size:42px;
+  margin:0 0 15px;
+}
+
+.hero p{
+  max-width:650px;
+  margin:auto;
+  color:#d8e2f1;
+  line-height:1.7;
+}
+
+.btn{
+  border:0;
+  border-radius:7px;
+  padding:13px 22px;
+  background:#1769e0;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+  margin-top:15px;
+}
+
+section{
+  padding:60px 6%;
+}
+
+.title{
+  text-align:center;
+  margin-bottom:30px;
+}
+
+.plans{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  gap:18px;
+}
+
+.card{
+  background:white;
+  padding:25px;
+  border-radius:12px;
+  text-align:center;
+  box-shadow:0 5px 20px #dce2eb;
+}
+
+.amount{
+  font-size:28px;
+  font-weight:bold;
+  margin:15px;
+}
+
+.auth{
+  max-width:450px;
+  margin:auto;
+  background:white;
+  padding:30px;
+  border-radius:12px;
+  box-shadow:0 5px 20px #dce2eb;
+}
+
+input{
+  width:100%;
+  padding:13px;
+  margin:8px 0 15px;
+  border:1px solid #d8dee8;
+  border-radius:7px;
+}
+
+.auth button{
+  width:100%;
+}
+
+.message{
+  min-height:25px;
+  line-height:1.5;
+}
+
+#dashboard{
+  display:none;
+}
+
+.box{
+  background:#081426;
+  color:white;
+  padding:30px;
+  border-radius:12px;
+  max-width:800px;
+  margin:auto;
+}
+
+.dashboard-card{
+  background:white;
+  color:#172033;
+  padding:20px;
+  margin:15px 0;
+  border-radius:10px;
+}
+
+.notice{
+  background:#fff3cd;
+  padding:15px;
+  border-radius:7px;
+  margin-top:20px;
+  font-size:13px;
+}
+
+footer{
+  background:#081426;
+  color:white;
+  text-align:center;
+  padding:30px;
+}
+
+@media(max-width:600px){
+  .hero h1{
+    font-size:32px;
+  }
+
+  nav a{
+    font-size:12px;
+    margin-left:8px;
+  }
+}
 </style>
 </head>
 
 <body>
 
 <header>
-  <div class="logo">UP<span>Investment</span></div>
+
+  <div class="logo">
+    UP<span>Investment</span>
+  </div>
+
   <nav>
     <a href="#home">Home</a>
+    <a href="#plans">Plans</a>
     <a href="#account">Account</a>
+    <a href="#support">Support</a>
   </nav>
+
 </header>
 
+
 <section class="hero" id="home">
+
   <h1>Welcome to UPInvestment</h1>
-  <p>Create and securely manage your account.</p>
+
+  <p>
+    Create an account, review available plans,
+    and securely manage your account.
+  </p>
+
+  <a href="#account">
+    <button class="btn">
+      Get Started
+    </button>
+  </a>
+
 </section>
 
+
+<section id="plans">
+
+  <h2 class="title">
+    Investment Plans
+  </h2>
+
+  <div class="plans">
+
+    <div class="card">
+      <h3>Starter</h3>
+      <div class="amount">$100</div>
+      <p>Entry-level plan</p>
+
+      <button
+        class="btn"
+        onclick="selectPlan(100)">
+        Select
+      </button>
+    </div>
+
+
+    <div class="card">
+      <h3>Standard</h3>
+      <div class="amount">$500</div>
+      <p>Standard plan</p>
+
+      <button
+        class="btn"
+        onclick="selectPlan(500)">
+        Select
+      </button>
+    </div>
+
+
+    <div class="card">
+      <h3>Premium</h3>
+      <div class="amount">$1,000</div>
+      <p>Higher plan</p>
+
+      <button
+        class="btn"
+        onclick="selectPlan(1000)">
+        Select
+      </button>
+    </div>
+
+
+    <div class="card">
+      <h3>Elite</h3>
+      <div class="amount">$10,000</div>
+      <p>Highest listed plan</p>
+
+      <button
+        class="btn"
+        onclick="selectPlan(10000)">
+        Select
+      </button>
+    </div>
+
+  </div>
+
+  <div class="notice">
+    Investment involves risk. Returns are not guaranteed.
+    Review all applicable risks, fees and terms before making
+    financial decisions.
+  </div>
+
+</section>
+
+
 <section id="account">
+
+  <h2 class="title">
+    Account
+  </h2>
 
   <div class="auth">
 
@@ -52,72 +295,237 @@ footer{background:#081426;color:white;text-align:center;padding:30px}
     <form id="signupForm">
 
       <label>Full Name</label>
-      <input id="name" type="text" required>
+
+      <input
+        id="name"
+        type="text"
+        placeholder="Your full name"
+        required
+      >
 
       <label>Email</label>
-      <input id="email" type="email" required>
+
+      <input
+        id="email"
+        type="email"
+        placeholder="Your email"
+        required
+      >
 
       <label>Password</label>
-      <input id="password" type="password" minlength="6" required>
 
-      <button type="submit">Create Account</button>
+      <input
+        id="password"
+        type="password"
+        minlength="6"
+        placeholder="At least 6 characters"
+        required
+      >
+
+      <button
+        class="btn"
+        type="submit">
+        Create Account
+      </button>
 
     </form>
 
-    <p id="signupMessage" class="message"></p>
+    <p
+      id="signupMessage"
+      class="message">
+    </p>
+
 
     <hr>
+
 
     <h2>Login</h2>
 
     <form id="loginForm">
 
       <label>Email</label>
-      <input id="loginEmail" type="email" required>
+
+      <input
+        id="loginEmail"
+        type="email"
+        placeholder="Your email"
+        required
+      >
 
       <label>Password</label>
-      <input id="loginPassword" type="password" required>
 
-      <button type="submit">Login</button>
+      <input
+        id="loginPassword"
+        type="password"
+        placeholder="Your password"
+        required
+      >
+
+      <button
+        class="btn"
+        type="submit">
+        Login
+      </button>
 
     </form>
 
-    <p id="loginMessage" class="message"></p>
+    <p
+      id="loginMessage"
+      class="message">
+    </p>
 
   </div>
 
 </section>
+
 
 <section id="dashboard">
 
   <div class="box">
 
-    <h2>Welcome</h2>
+    <h2>
+      Your Dashboard
+    </h2>
 
     <p id="userEmail"></p>
 
-    <p>Your account is authenticated through Supabase.</p>
 
-    <button onclick="logout()">Logout</button>
+    <div class="dashboard-card">
+
+      <h3>Selected Plan</h3>
+
+      <p id="selectedPlan">
+        No plan selected.
+      </p>
+
+    </div>
+
+
+    <div class="dashboard-card">
+
+      <h3>Investment History</h3>
+
+      <p>
+        No transactions recorded.
+      </p>
+
+    </div>
+
+
+    <div class="dashboard-card">
+
+      <h3>Deposits</h3>
+
+      <p>
+        No deposits recorded.
+      </p>
+
+    </div>
+
+
+    <div class="dashboard-card">
+
+      <h3>Withdrawals</h3>
+
+      <p>
+        No withdrawals recorded.
+      </p>
+
+    </div>
+
+
+    <button
+      class="btn"
+      onclick="logout()">
+      Logout
+    </button>
 
   </div>
 
 </section>
 
+
+<section id="support">
+
+  <h2 class="title">
+    Contact & Support
+  </h2>
+
+  <div class="auth">
+
+    <h3>UPInvestment Support</h3>
+
+    <p>
+      For questions about your account or the website,
+      contact:
+    </p>
+
+    <p>
+      <strong>
+        emmanuelthankgod2009@gmail.com
+      </strong>
+    </p>
+
+  </div>
+
+</section>
+
+
+<section id="company">
+
+  <h2 class="title">
+    Company Information
+  </h2>
+
+  <div class="auth">
+
+    <p>
+      UPInvestment provides an online account interface
+      for reviewing available investment information.
+    </p>
+
+    <p>
+      Investment products involve risk. Users should review
+      applicable terms, fees, risks and regulatory information
+      before making financial decisions.
+    </p>
+
+  </div>
+
+</section>
+
+
 <footer>
-  <strong>UPInvestment</strong>
-  <p>Investment involves risk. Returns are not guaranteed.</p>
+
+  <strong>
+    UPInvestment
+  </strong>
+
+  <p>
+    Investment involves risk. Returns are not guaranteed.
+  </p>
+
+  <p>
+    Contact:
+    emmanuelthankgod2009@gmail.com
+  </p>
+
 </footer>
+
 
 <script>
 
-/* SUPABASE */
+/* =========================
+   SUPABASE CONFIGURATION
+   ========================= */
 
 const SUPABASE_URL =
 "https://scrjczkluiuwitxbzeud.supabase.co";
 
+
 const SUPABASE_KEY =
 "sb_publishable_83A-4E-xP50UwITDwZ2McQ_oB5hbbP7";
+
 
 const supabaseClient =
 window.supabase.createClient(
@@ -126,136 +534,219 @@ window.supabase.createClient(
 );
 
 
-/* SIGN UP */
+/* =========================
+   SIGN UP
+   ========================= */
 
 document
 .getElementById("signupForm")
-.addEventListener("submit", async function(e){
+.addEventListener(
+  "submit",
+  async function(e){
 
-  e.preventDefault();
+    e.preventDefault();
 
-  const message =
-  document.getElementById("signupMessage");
+    const message =
+    document.getElementById(
+      "signupMessage"
+    );
 
-  message.textContent =
-  "Creating account...";
+    message.textContent =
+    "Creating account...";
 
-  const name =
-  document.getElementById("name").value.trim();
 
-  const email =
-  document.getElementById("email").value.trim();
+    const name =
+    document.getElementById(
+      "name"
+    ).value.trim();
 
-  const password =
-  document.getElementById("password").value;
 
-  const { data, error } =
-  await supabaseClient.auth.signUp({
+    const email =
+    document.getElementById(
+      "email"
+    ).value.trim();
 
-    email: email,
 
-    password: password,
+    const password =
+    document.getElementById(
+      "password"
+    ).value;
 
-    options:{
-      data:{
-        full_name:name
+
+    try{
+
+      const {
+        data,
+        error
+      } =
+      await supabaseClient.auth.signUp({
+
+        email:email,
+
+        password:password,
+
+        options:{
+          data:{
+            full_name:name
+          }
+        }
+
+      });
+
+
+      if(error){
+
+        message.textContent =
+        "Error: " +
+        error.message;
+
+        return;
       }
+
+
+      if(data.session){
+
+        message.textContent =
+        "Account created successfully.";
+
+        showDashboard(
+          data.user
+        );
+
+      }else{
+
+        message.textContent =
+        "Account created. Check your email to confirm your account.";
+
+      }
+
+    }catch(error){
+
+      message.textContent =
+      "Connection error: " +
+      error.message;
+
     }
-
-  });
-
-  if(error){
-
-    message.textContent =
-    "Error: " + error.message;
-
-    return;
-  }
-
-  if(data.session){
-
-    message.textContent =
-    "Account created successfully.";
-
-    showDashboard(data.user);
-
-  }else{
-
-    message.textContent =
-    "Account created. Check your email to confirm your account.";
-
-  }
 
 });
 
 
-/* LOGIN */
+/* =========================
+   LOGIN
+   ========================= */
 
 document
 .getElementById("loginForm")
-.addEventListener("submit", async function(e){
+.addEventListener(
+  "submit",
+  async function(e){
 
-  e.preventDefault();
+    e.preventDefault();
 
-  const message =
-  document.getElementById("loginMessage");
-
-  message.textContent =
-  "Logging in...";
-
-  const email =
-  document.getElementById("loginEmail").value.trim();
-
-  const password =
-  document.getElementById("loginPassword").value;
-
-  const { data, error } =
-  await supabaseClient.auth.signInWithPassword({
-
-    email:email,
-
-    password:password
-
-  });
-
-  if(error){
+    const message =
+    document.getElementById(
+      "loginMessage"
+    );
 
     message.textContent =
-    "Error: " + error.message;
+    "Logging in...";
 
-    return;
-  }
 
-  showDashboard(data.user);
+    const email =
+    document.getElementById(
+      "loginEmail"
+    ).value.trim();
+
+
+    const password =
+    document.getElementById(
+      "loginPassword"
+    ).value;
+
+
+    try{
+
+      const {
+        data,
+        error
+      } =
+      await supabaseClient.auth
+      .signInWithPassword({
+
+        email:email,
+
+        password:password
+
+      });
+
+
+      if(error){
+
+        message.textContent =
+        "Error: " +
+        error.message;
+
+        return;
+      }
+
+
+      showDashboard(
+        data.user
+      );
+
+
+    }catch(error){
+
+      message.textContent =
+      "Connection error: " +
+      error.message;
+
+    }
 
 });
 
 
-/* DASHBOARD */
+/* =========================
+   DASHBOARD
+   ========================= */
 
 function showDashboard(user){
 
-  document.getElementById("account")
-  .style.display="none";
+  document.getElementById(
+    "account"
+  ).style.display="none";
 
-  document.getElementById("dashboard")
-  .style.display="block";
 
-  document.getElementById("userEmail")
-  .textContent =
-  "Signed in as: " + user.email;
+  document.getElementById(
+    "dashboard"
+  ).style.display="block";
 
-  window.location.hash="dashboard";
+
+  document.getElementById(
+    "userEmail"
+  ).textContent =
+  "Signed in as: " +
+  user.email;
+
+
+  window.location.hash =
+  "dashboard";
 
 }
 
 
-/* LOGOUT */
+/* =========================
+   LOGOUT
+   ========================= */
 
 async function logout(){
 
-  const { error } =
-  await supabaseClient.auth.signOut();
+  const {
+    error
+  } =
+  await supabaseClient.auth
+  .signOut();
+
 
   if(error){
 
@@ -264,23 +755,58 @@ async function logout(){
     return;
   }
 
-  document.getElementById("dashboard")
-  .style.display="none";
 
-  document.getElementById("account")
-  .style.display="block";
+  document.getElementById(
+    "dashboard"
+  ).style.display="none";
 
-  window.location.hash="account";
+
+  document.getElementById(
+    "account"
+  ).style.display="block";
+
+
+  window.location.hash =
+  "account";
 
 }
 
 
-/* RESTORE LOGIN SESSION */
+/* =========================
+   PLAN SELECTION
+   ========================= */
+
+function selectPlan(amount){
+
+  document.getElementById(
+    "account"
+  ).scrollIntoView({
+    behavior:"smooth"
+  });
+
+
+  document.getElementById(
+    "selectedPlan"
+  ).textContent =
+  "Selected plan: $" +
+  amount;
+
+}
+
+
+/* =========================
+   RESTORE SESSION
+   ========================= */
 
 async function checkSession(){
 
-  const { data, error } =
-  await supabaseClient.auth.getSession();
+  const {
+    data,
+    error
+  } =
+  await supabaseClient.auth
+  .getSession();
+
 
   if(error){
 
@@ -289,7 +815,11 @@ async function checkSession(){
     return;
   }
 
-  if(data.session){
+
+  if(
+    data.session &&
+    data.session.user
+  ){
 
     showDashboard(
       data.session.user
@@ -299,7 +829,31 @@ async function checkSession(){
 
 }
 
+
 checkSession();
+
+
+/* =========================
+   AUTH STATE LISTENER
+   ========================= */
+
+supabaseClient.auth
+.onAuthStateChange(
+  function(event, session){
+
+    if(
+      session &&
+      session.user
+    ){
+
+      showDashboard(
+        session.user
+      );
+
+    }
+
+  }
+);
 
 </script>
 
