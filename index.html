@@ -3,1331 +3,358 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UPInvestment — Investment Platform</title>
+<title>UPInvestment</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-:root{
-  --primary:#1769e0;
-  --dark:#081426;
-  --dark2:#0d1d35;
-  --light:#f5f8fc;
-  --text:#172033;
-  --muted:#68758a;
-  --white:#fff;
-  --border:#e4eaf2;
-  --success:#16a673;
-  --danger:#d9534f;
-}
-
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-html{
-  scroll-behavior:smooth;
-}
-
-body{
-  font-family:Arial,Helvetica,sans-serif;
-  background:var(--light);
-  color:var(--text);
-  line-height:1.6;
-}
-
-a{
-  text-decoration:none;
-  color:inherit;
-}
-
-button,input{
-  font:inherit;
-}
-
-.container{
-  width:min(1120px,92%);
-  margin:auto;
-}
-
-/* NAVBAR */
-
-.navbar{
-  background:var(--dark);
-  color:white;
-  position:sticky;
-  top:0;
-  z-index:1000;
-  box-shadow:0 3px 15px rgba(0,0,0,.15);
-}
-
-.nav-inner{
-  min-height:72px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-
-.logo{
-  font-size:23px;
-  font-weight:800;
-}
-
-.logo span{
-  color:#4d9aff;
-}
-
-.nav-links{
-  display:flex;
-  gap:25px;
-  align-items:center;
-}
-
-.nav-links a{
-  color:#dce6f5;
-  font-size:14px;
-}
-
-.nav-btn{
-  background:var(--primary);
-  padding:10px 18px;
-  border-radius:7px;
-  color:white!important;
-}
-
-.menu{
-  display:none;
-  font-size:26px;
-  cursor:pointer;
-}
-
-/* HERO */
-
-.hero{
-  background:
-    radial-gradient(circle at 80% 20%,rgba(41,121,255,.3),transparent 30%),
-    linear-gradient(135deg,#081426,#10294d);
-  color:white;
-  padding:90px 0;
-}
-
-.hero-content{
-  max-width:760px;
-}
-
-.badge{
-  display:inline-block;
-  background:rgba(255,255,255,.1);
-  border:1px solid rgba(255,255,255,.2);
-  padding:7px 13px;
-  border-radius:30px;
-  font-size:13px;
-  margin-bottom:20px;
-}
-
-.hero h1{
-  font-size:52px;
-  line-height:1.12;
-  margin-bottom:20px;
-}
-
-.hero p{
-  color:#d2dbea;
-  font-size:17px;
-  max-width:650px;
-}
-
-.hero-buttons{
-  display:flex;
-  gap:12px;
-  margin-top:30px;
-  flex-wrap:wrap;
-}
-
-.btn{
-  border:0;
-  cursor:pointer;
-  display:inline-block;
-  padding:13px 23px;
-  border-radius:7px;
-  font-weight:700;
-}
-
-.btn-primary{
-  background:var(--primary);
-  color:white;
-}
-
-.btn-outline{
-  border:1px solid #7690b5;
-  color:white;
-}
-
-/* STATS */
-
-.stats{
-  margin-top:-35px;
-  position:relative;
-}
-
-.stats-grid{
-  background:white;
-  border-radius:12px;
-  padding:25px;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  box-shadow:0 8px 30px rgba(20,40,80,.1);
-}
-
-.stat{
-  text-align:center;
-  border-right:1px solid var(--border);
-}
-
-.stat:last-child{
-  border:0;
-}
-
-.stat strong{
-  font-size:25px;
-  display:block;
-}
-
-.stat span{
-  color:var(--muted);
-  font-size:13px;
-}
-
-/* SECTIONS */
-
-section{
-  padding:75px 0;
-}
-
-.section-title{
-  text-align:center;
-  margin-bottom:40px;
-}
-
-.section-title h2{
-  font-size:32px;
-  margin-bottom:8px;
-}
-
-.section-title p{
-  color:var(--muted);
-}
-
-/* FEATURES */
-
-.features{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:20px;
-}
-
-.feature{
-  background:white;
-  padding:28px;
-  border-radius:12px;
-  border:1px solid var(--border);
-}
-
-.icon{
-  width:48px;
-  height:48px;
-  border-radius:10px;
-  background:#eaf2ff;
-  display:grid;
-  place-items:center;
-  font-size:22px;
-  margin-bottom:17px;
-}
-
-.feature h3{
-  margin-bottom:8px;
-}
-
-.feature p{
-  color:var(--muted);
-  font-size:14px;
-}
-
-/* PLANS */
-
-.plans{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:18px;
-}
-
-.plan{
-  background:white;
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:25px;
-  position:relative;
-}
-
-.plan.popular{
-  border:2px solid var(--primary);
-}
-
-.popular-label{
-  position:absolute;
-  right:15px;
-  top:15px;
-  font-size:11px;
-  background:var(--primary);
-  color:white;
-  padding:5px 8px;
-  border-radius:5px;
-}
-
-.plan h3{
-  margin-bottom:15px;
-}
-
-.price{
-  font-size:28px;
-  font-weight:800;
-  margin-bottom:15px;
-}
-
-.plan p{
-  color:var(--muted);
-  font-size:13px;
-  margin-bottom:20px;
-}
-
-.plan .btn{
-  width:100%;
-  text-align:center;
-}
-
-/* DASHBOARD */
-
-.dashboard{
-  background:var(--dark);
-  color:white;
-}
-
-.dashboard-box{
-  display:grid;
-  grid-template-columns:230px 1fr;
-  background:#101f37;
-  border-radius:14px;
-  overflow:hidden;
-}
-
-.sidebar{
-  padding:25px 15px;
-  border-right:1px solid #24344c;
-}
-
-.sidebar h3{
-  margin-bottom:25px;
-  padding:0 10px;
-}
-
-.side-link{
-  padding:12px 10px;
-  color:#aebbd0;
-  border-radius:6px;
-  margin-bottom:4px;
-  font-size:14px;
-}
-
-.side-link.active,
-.side-link:hover{
-  background:#173b70;
-  color:white;
-}
-
-.dashboard-main{
-  padding:25px;
-}
-
-.dashboard-header{
-  display:flex;
-  justify-content:space-between;
-  gap:15px;
-  align-items:center;
-  margin-bottom:25px;
-}
-
-.dashboard-header p{
-  color:#aebbd0;
-  font-size:13px;
-}
-
-.balance-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:15px;
-}
-
-.balance-card{
-  background:#172a47;
-  padding:20px;
-  border-radius:10px;
-}
-
-.balance-card span{
-  color:#aebbd0;
-  font-size:12px;
-}
-
-.balance-card strong{
-  display:block;
-  font-size:24px;
-  margin-top:7px;
-}
-
-.transactions{
-  margin-top:20px;
-  background:#172a47;
-  padding:20px;
-  border-radius:10px;
-}
-
-.transaction{
-  display:flex;
-  justify-content:space-between;
-  padding:13px 0;
-  border-bottom:1px solid #2a3b54;
-  font-size:13px;
-}
-
-.transaction:last-child{
-  border:0;
-}
-
-.success{
-  color:#42d59f;
-}
-
-/* AUTH */
-
-.auth-section{
-  background:white;
-}
-
-.auth-grid{
-  max-width:850px;
-  margin:auto;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  box-shadow:0 8px 30px rgba(20,40,80,.08);
-  border-radius:12px;
-  overflow:hidden;
-}
-
-.auth-info{
-  background:var(--dark);
-  color:white;
-  padding:40px;
-}
-
-.auth-info p{
-  color:#b8c5d8;
-  margin-top:15px;
-}
-
-.auth-form{
-  padding:40px;
-  background:white;
-}
-
-.form-group{
-  margin-bottom:16px;
-}
-
-.form-group label{
-  display:block;
-  font-size:13px;
-  font-weight:700;
-  margin-bottom:6px;
-}
-
-.form-group input{
-  width:100%;
-  padding:12px;
-  border:1px solid var(--border);
-  border-radius:7px;
-  outline:none;
-}
-
-.form-group input:focus{
-  border-color:var(--primary);
-}
-
-.auth-form .btn{
-  width:100%;
-}
-
-/* FAQ */
-
-.faq{
-  max-width:800px;
-  margin:auto;
-}
-
-details{
-  background:white;
-  margin-bottom:10px;
-  padding:18px 20px;
-  border:1px solid var(--border);
-  border-radius:8px;
-}
-
-summary{
-  cursor:pointer;
-  font-weight:700;
-}
-
-/* CONTACT */
-
-.contact-box{
-  background:white;
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:40px;
-  text-align:center;
-}
-
-.contact-box p{
-  color:var(--muted);
-}
-
-.email{
-  display:inline-block;
-  margin-top:15px;
-  color:var(--primary);
-  font-weight:bold;
-}
-
-/* FOOTER */
-
-footer{
-  background:var(--dark);
-  color:#aebbd0;
-  padding:45px 0 20px;
-}
-
-.footer-grid{
-  display:grid;
-  grid-template-columns:2fr 1fr 1fr;
-  gap:35px;
-}
-
-footer h3{
-  color:white;
-  margin-bottom:12px;
-}
-
-footer p,
-footer a{
-  font-size:13px;
-}
-
-.footer-links{
-  display:flex;
-  flex-direction:column;
-  gap:7px;
-}
-
-.copyright{
-  border-top:1px solid #263650;
-  margin-top:35px;
-  padding-top:18px;
-  font-size:12px;
-}
-
-/* MODAL */
-
-.modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.65);
-  z-index:2000;
-  padding:25px;
-  overflow:auto;
-}
-
-.modal.show{
-  display:grid;
-  place-items:center;
-}
-
-.modal-box{
-  background:white;
-  width:min(500px,100%);
-  border-radius:12px;
-  padding:30px;
-  position:relative;
-}
-
-.close{
-  position:absolute;
-  right:20px;
-  top:15px;
-  cursor:pointer;
-  font-size:22px;
-}
-
-.notice{
-  margin-top:15px;
-  background:#fff5d9;
-  border-left:4px solid #e0a000;
-  padding:13px;
-  font-size:12px;
-}
-
-/* MOBILE */
-
-@media(max-width:850px){
-
-  .nav-links{
-    display:none;
-    position:absolute;
-    left:0;
-    right:0;
-    top:72px;
-    background:var(--dark);
-    padding:20px;
-    flex-direction:column;
-    align-items:flex-start;
-  }
-
-  .nav-links.open{
-    display:flex;
-  }
-
-  .menu{
-    display:block;
-  }
-
-  .hero h1{
-    font-size:38px;
-  }
-
-  .stats-grid{
-    grid-template-columns:1fr;
-    gap:18px;
-  }
-
-  .stat{
-    border-right:0;
-    border-bottom:1px solid var(--border);
-    padding-bottom:15px;
-  }
-
-  .features{
-    grid-template-columns:1fr;
-  }
-
-  .plans{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .dashboard-box{
-    grid-template-columns:1fr;
-  }
-
-  .sidebar{
-    display:none;
-  }
-
-  .balance-grid{
-    grid-template-columns:1fr;
-  }
-
-  .auth-grid{
-    grid-template-columns:1fr;
-  }
-
-  .auth-info{
-    display:none;
-  }
-
-  .footer-grid{
-    grid-template-columns:1fr;
-  }
-}
-
-@media(max-width:500px){
-
-  .hero{
-    padding:65px 0;
-  }
-
-  .hero h1{
-    font-size:32px;
-  }
-
-  .hero p{
-    font-size:15px;
-  }
-
-  section{
-    padding:55px 0;
-  }
-
-  .plans{
-    grid-template-columns:1fr;
-  }
-
-  .dashboard-main{
-    padding:15px;
-  }
-
-  .auth-form{
-    padding:25px;
-  }
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#172033}
+header{background:#081426;color:white;padding:18px 6%;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:23px;font-weight:bold}
+.logo span{color:#4d9aff}
+nav a{color:white;text-decoration:none;margin-left:18px}
+.hero{background:linear-gradient(135deg,#081426,#12315c);color:white;text-align:center;padding:80px 20px}
+.hero h1{font-size:42px;margin:0 0 15px}
+.hero p{max-width:650px;margin:auto;color:#d8e2f1;line-height:1.7}
+.btn{border:0;border-radius:7px;padding:13px 22px;background:#1769e0;color:white;font-weight:bold;cursor:pointer;margin-top:20px}
+section{padding:60px 6%}
+.title{text-align:center;margin-bottom:30px}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px}
+.card{background:white;padding:25px;border-radius:12px;text-align:center;box-shadow:0 5px 20px #dce2eb}
+.amount{font-size:28px;font-weight:bold;margin:15px}
+.auth{max-width:450px;margin:auto;background:white;padding:30px;border-radius:12px;box-shadow:0 5px 20px #dce2eb}
+input{width:100%;padding:13px;margin:8px 0 15px;border:1px solid #d8dee8;border-radius:7px}
+.auth button{width:100%}
+#dashboard{display:none}
+.box{background:#081426;color:white;padding:30px;border-radius:12px;max-width:800px;margin:auto}
+.notice{background:#fff3cd;padding:15px;border-radius:7px;margin-top:20px;font-size:13px}
+footer{background:#081426;color:white;text-align:center;padding:30px}
+@media(max-width:600px){
+  .hero h1{font-size:32px}
+  nav a{font-size:12px;margin-left:8px}
 }
 </style>
 </head>
 
 <body>
 
-<!-- NAVBAR -->
-
-<header class="navbar">
-  <div class="container nav-inner">
-
-    <a class="logo" href="#">
-      UP<span>Investment</span>
-    </a>
-
-    <div class="menu" onclick="toggleMenu()">☰</div>
-
-    <nav class="nav-links" id="navLinks">
-      <a href="#home">Home</a>
-      <a href="#plans">Plans</a>
-      <a href="#dashboard">Dashboard</a>
-      <a href="#faq">FAQ</a>
-      <a href="#contact">Contact</a>
-      <a href="#auth" class="nav-btn">Get Started</a>
-    </nav>
-
-  </div>
+<header>
+  <div class="logo">UP<span>Investment</span></div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#plans">Plans</a>
+    <a href="#account">Account</a>
+  </nav>
 </header>
 
-
-<!-- HERO -->
-
 <section class="hero" id="home">
-  <div class="container">
-
-    <div class="hero-content">
-
-      <div class="badge">
-        Investment information platform
-      </div>
-
-      <h1>
-        Build your financial future with UPInvestment.
-      </h1>
-
-      <p>
-        Explore investment opportunities, review available plans,
-        monitor your portfolio and manage your account from one
-        convenient platform.
-      </p>
-
-      <div class="hero-buttons">
-        <a href="#plans" class="btn btn-primary">
-          Explore Plans
-        </a>
-
-        <a href="#about" class="btn btn-outline">
-          Learn More
-        </a>
-      </div>
-
-    </div>
-
-  </div>
+  <h1>Welcome to UPInvestment</h1>
+  <p>
+    Explore available plans, create an account and manage your
+    account securely.
+  </p>
+  <a href="#account">
+    <button class="btn">Get Started</button>
+  </a>
 </section>
-
-
-<!-- STATS -->
-
-<div class="stats">
-  <div class="container">
-
-    <div class="stats-grid">
-
-      <div class="stat">
-        <strong>$100</strong>
-        <span>Starting plan</span>
-      </div>
-
-      <div class="stat">
-        <strong>$10,000</strong>
-        <span>Highest listed plan</span>
-      </div>
-
-      <div class="stat">
-        <strong>24/7</strong>
-        <span>Online account access</span>
-      </div>
-
-    </div>
-
-  </div>
-</div>
-
-
-<!-- ABOUT -->
-
-<section id="about">
-
-  <div class="container">
-
-    <div class="section-title">
-      <h2>Why UPInvestment?</h2>
-      <p>A simple platform for reviewing and managing investments.</p>
-    </div>
-
-    <div class="features">
-
-      <div class="feature">
-        <div class="icon">📊</div>
-        <h3>Portfolio Tracking</h3>
-        <p>
-          Keep track of your investment activity and account information
-          from your personal dashboard.
-        </p>
-      </div>
-
-      <div class="feature">
-        <div class="icon">🔐</div>
-        <h3>Account Security</h3>
-        <p>
-          Account access should be protected using secure authentication
-          and appropriate security controls.
-        </p>
-      </div>
-
-      <div class="feature">
-        <div class="icon">📱</div>
-        <h3>Mobile Friendly</h3>
-        <p>
-          Designed to work smoothly on phones, tablets and desktop
-          computers.
-        </p>
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- PLANS -->
 
 <section id="plans">
+  <h2 class="title">Available Plans</h2>
 
-  <div class="container">
+  <div class="plans">
 
-    <div class="section-title">
-      <h2>Investment Plans</h2>
-      <p>Review the available investment levels.</p>
+    <div class="card">
+      <h3>Starter</h3>
+      <div class="amount">$100</div>
+      <p>Entry-level plan</p>
+      <button class="btn" onclick="selectPlan(100)">Select</button>
     </div>
 
-    <div class="plans">
-
-      <div class="plan">
-        <h3>Starter</h3>
-        <div class="price">$100</div>
-        <p>Entry-level investment plan.</p>
-        <button class="btn btn-primary"
-                onclick="openPlan('Starter','$100')">
-          View Plan
-        </button>
-      </div>
-
-      <div class="plan">
-        <h3>Standard</h3>
-        <div class="price">$500</div>
-        <p>Standard investment level.</p>
-        <button class="btn btn-primary"
-                onclick="openPlan('Standard','$500')">
-          View Plan
-        </button>
-      </div>
-
-      <div class="plan popular">
-
-        <span class="popular-label">
-          POPULAR
-        </span>
-
-        <h3>Premium</h3>
-        <div class="price">$1,000</div>
-        <p>Higher investment level.</p>
-
-        <button class="btn btn-primary"
-                onclick="openPlan('Premium','$1,000')">
-          View Plan
-        </button>
-
-      </div>
-
-      <div class="plan">
-        <h3>Elite</h3>
-        <div class="price">$10,000</div>
-        <p>Highest listed investment level.</p>
-
-        <button class="btn btn-primary"
-                onclick="openPlan('Elite','$10,000')">
-          View Plan
-        </button>
-      </div>
-
+    <div class="card">
+      <h3>Standard</h3>
+      <div class="amount">$500</div>
+      <p>Standard plan</p>
+      <button class="btn" onclick="selectPlan(500)">Select</button>
     </div>
+
+    <div class="card">
+      <h3>Premium</h3>
+      <div class="amount">$1,000</div>
+      <p>Higher plan</p>
+      <button class="btn" onclick="selectPlan(1000)">Select</button>
+    </div>
+
+    <div class="card">
+      <h3>Elite</h3>
+      <div class="amount">$10,000</div>
+      <p>Highest listed plan</p>
+      <button class="btn" onclick="selectPlan(10000)">Select</button>
+    </div>
+
+  </div>
+
+  <div class="notice">
+    Investment involves risk. Returns are not guaranteed. Review
+    all risks, fees and terms before making financial decisions.
+  </div>
+</section>
+
+<section id="account">
+
+  <h2 class="title">Create Your Account</h2>
+
+  <div class="auth">
+
+    <form id="signupForm">
+
+      <label>Full Name</label>
+      <input
+        id="name"
+        type="text"
+        required
+        placeholder="Your full name"
+      >
+
+      <label>Email</label>
+      <input
+        id="email"
+        type="email"
+        required
+        placeholder="Your email"
+      >
+
+      <label>Password</label>
+      <input
+        id="password"
+        type="password"
+        required
+        minlength="6"
+        placeholder="At least 6 characters"
+      >
+
+      <button class="btn" type="submit">
+        Create Account
+      </button>
+
+    </form>
+
+    <p id="message"></p>
+
+    <hr>
+
+    <h3>Already have an account?</h3>
+
+    <form id="loginForm">
+
+      <input
+        id="loginEmail"
+        type="email"
+        required
+        placeholder="Email"
+      >
+
+      <input
+        id="loginPassword"
+        type="password"
+        required
+        placeholder="Password"
+      >
+
+      <button class="btn" type="submit">
+        Login
+      </button>
+
+    </form>
 
     <div class="notice">
-      Investment values can go down as well as up. No return is
-      guaranteed. Actual investment products, fees, risks and
-      withdrawal conditions must be clearly disclosed before accepting
-      customer funds.
+      Your login is handled through Supabase authentication.
+      Never share your password.
     </div>
 
   </div>
 
 </section>
 
+<section id="dashboard">
 
-<!-- DASHBOARD -->
+  <div class="box">
 
-<section id="dashboard" class="dashboard">
+    <h2>Welcome to your dashboard</h2>
 
-  <div class="container">
+    <p id="userEmail"></p>
 
-    <div class="section-title">
-      <h2>Investor Dashboard</h2>
-      <p style="color:#aebbd0">
-        Example interface for registered users.
-      </p>
-    </div>
+    <p>Account balance: <strong>$0.00</strong></p>
+    <p>Invested: <strong>$0.00</strong></p>
 
-    <div class="dashboard-box">
+    <button class="btn" onclick="logout()">
+      Logout
+    </button>
 
-      <aside class="sidebar">
-
-        <h3>UPInvestment</h3>
-
-        <div class="side-link active">
-          📊 Dashboard
-        </div>
-
-        <div class="side-link">
-          💰 Investments
-        </div>
-
-        <div class="side-link">
-          💳 Deposits
-        </div>
-
-        <div class="side-link">
-          ↗ Withdrawals
-        </div>
-
-        <div class="side-link">
-          ⚙ Account Settings
-        </div>
-
-      </aside>
-
-      <div class="dashboard-main">
-
-        <div class="dashboard-header">
-
-          <div>
-            <h3>Account Overview</h3>
-            <p>Demo dashboard — connect a secure backend before use.</p>
-          </div>
-
-          <button class="btn btn-primary"
-                  onclick="openModal('depositModal')">
-            Deposit
-          </button>
-
-        </div>
-
-        <div class="balance-grid">
-
-          <div class="balance-card">
-            <span>Account Balance</span>
-            <strong>$0.00</strong>
-          </div>
-
-          <div class="balance-card">
-            <span>Invested</span>
-            <strong>$0.00</strong>
-          </div>
-
-          <div class="balance-card">
-            <span>Available to Withdraw</span>
-            <strong>$0.00</strong>
-          </div>
-
-        </div>
-
-        <div class="transactions">
-
-          <h3>Recent Activity</h3>
-
-          <div class="transaction">
-            <span>No transactions yet</span>
-            <span class="success">$0.00</span>
-          </div>
-
-          <div class="transaction">
-            <span>Account created</span>
-            <span>—</span>
-          </div>
-
-        </div>
-
-      </div>
-
+    <div class="notice">
+      This dashboard does not create investment returns or
+      balances automatically.
     </div>
 
   </div>
 
 </section>
-
-
-<!-- AUTH -->
-
-<section id="auth" class="auth-section">
-
-  <div class="container">
-
-    <div class="section-title">
-      <h2>Create Your Account</h2>
-      <p>Register to access the investor dashboard.</p>
-    </div>
-
-    <div class="auth-grid">
-
-      <div class="auth-info">
-
-        <h2>Welcome to UPInvestment</h2>
-
-        <p>
-          Create an account to access your investment information,
-          account history and available platform features.
-        </p>
-
-        <div style="margin-top:25px;">
-          ✓ Mobile-friendly platform<br>
-          ✓ Account dashboard<br>
-          ✓ Investment tracking<br>
-          ✓ Support access
-        </div>
-
-      </div>
-
-      <div class="auth-form">
-
-        <form onsubmit="demoRegister(event)">
-
-          <div class="form-group">
-            <label>Full Name</label>
-            <input type="text" required
-                   placeholder="Enter your full name">
-          </div>
-
-          <div class="form-group">
-            <label>Email Address</label>
-            <input type="email" required
-                   placeholder="Enter your email">
-          </div>
-
-          <div class="form-group">
-            <label>Password</label>
-            <input type="password" required
-                   placeholder="Create a password">
-          </div>
-
-          <button class="btn btn-primary" type="submit">
-            Create Account
-          </button>
-
-        </form>
-
-        <div class="notice">
-          This front-end form does not store or transmit your
-          information. Connect it to a secure backend before collecting
-          real user data.
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- FAQ -->
-
-<section id="faq">
-
-  <div class="container">
-
-    <div class="section-title">
-      <h2>Frequently Asked Questions</h2>
-      <p>Important information before using an investment platform.</p>
-    </div>
-
-    <div class="faq">
-
-      <details>
-        <summary>Are investment returns guaranteed?</summary>
-        <p>
-          No. Investment returns are not guaranteed and investments
-          can lose value.
-        </p>
-      </details>
-
-      <details>
-        <summary>How do I make a deposit?</summary>
-        <p>
-          A real payment method should only be connected after a
-          legitimate payment processor and secure backend have been
-          configured.
-        </p>
-      </details>
-
-      <details>
-        <summary>How do withdrawals work?</summary>
-        <p>
-          Withdrawal rules, processing times, fees and eligibility
-          requirements should be clearly explained in the platform's
-          official terms.
-        </p>
-      </details>
-
-      <details>
-        <summary>Where can I get support?</summary>
-        <p>
-          Contact UPInvestment through the support email shown below.
-        </p>
-      </details>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- CONTACT -->
-
-<section id="contact">
-
-  <div class="container">
-
-    <div class="contact-box">
-
-      <h2>Need Help?</h2>
-
-      <p>
-        Contact the UPInvestment support team.
-      </p>
-
-      <a class="email"
-         href="mailto:emmanuelthankgod2009@gmail.com">
-        emmanuelthankgod2009@gmail.com
-      </a>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- FOOTER -->
 
 <footer>
-
-  <div class="container">
-
-    <div class="footer-grid">
-
-      <div>
-        <h3>UPInvestment</h3>
-
-        <p>
-          An investment information and account-management platform.
-          Investment involves risk and returns are not guaranteed.
-        </p>
-      </div>
-
-      <div>
-
-        <h3>Platform</h3>
-
-        <div class="footer-links">
-          <a href="#plans">Investment Plans</a>
-          <a href="#dashboard">Dashboard</a>
-          <a href="#faq">FAQ</a>
-        </div>
-
-      </div>
-
-      <div>
-
-        <h3>Contact</h3>
-
-        <div class="footer-links">
-          <a href="mailto:emmanuelthankgod2009@gmail.com">
-            Email Support
-          </a>
-          <a href="#contact">Contact Us</a>
-        </div>
-
-      </div>
-
-    </div>
-
-    <div class="copyright">
-      © 2026 UPInvestment. All rights reserved.
-    </div>
-
-  </div>
-
+  <strong>UPInvestment</strong>
+  <p>Investment involves risk. Returns are not guaranteed.</p>
+  <p>Contact: emmanuelthankgod2009@gmail.com</p>
 </footer>
-
-
-<!-- PLAN MODAL -->
-
-<div class="modal" id="planModal">
-
-  <div class="modal-box">
-
-    <div class="close"
-         onclick="closeModal('planModal')">
-      ×
-    </div>
-
-    <h2 id="planTitle">Investment Plan</h2>
-
-    <p id="planAmount"
-       style="font-size:25px;font-weight:bold;margin:15px 0;">
-    </p>
-
-    <p>
-      Review the full terms, fees, risks and withdrawal conditions
-      before making any investment decision.
-    </p>
-
-    <div class="notice">
-      No guaranteed returns. Investment involves risk.
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- DEPOSIT MODAL -->
-
-<div class="modal" id="depositModal">
-
-  <div class="modal-box">
-
-    <div class="close"
-         onclick="closeModal('depositModal')">
-      ×
-    </div>
-
-    <h2>Deposit</h2>
-
-    <p style="margin-top:10px;color:#68758a;">
-      Payment processing is not connected in this demo.
-    </p>
-
-    <div class="notice">
-      Do not send money to an address or payment account unless it
-      has been verified through the legitimate payment system of the
-      business.
-    </div>
-
-  </div>
-
-</div>
-
 
 <script>
 
-function toggleMenu(){
+const SUPABASE_URL =
+"https://scrjczkluiuwitxbzeud.supabase.co";
 
-  document
-    .getElementById("navLinks")
-    .classList.toggle("open");
+const SUPABASE_KEY =
+"PASTEsb_publishable_83A-4E-xP50UwITDwZ2McQ_oB5hbbP7
+
+const db = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+const message =
+document.getElementById("message");
+
+
+document.getElementById("signupForm")
+.addEventListener("submit", async function(e){
+
+  e.preventDefault();
+
+  const name =
+  document.getElementById("name").value.trim();
+
+  const email =
+  document.getElementById("email").value.trim();
+
+  const password =
+  document.getElementById("password").value;
+
+  message.textContent =
+  "Creating account...";
+
+  const { error } =
+  await db.auth.signUp({
+    email: email,
+    password: password,
+    options:{
+      data:{
+        full_name:name
+      }
+    }
+  });
+
+  if(error){
+    message.textContent =
+    error.message;
+    return;
+  }
+
+  message.textContent =
+  "Account created. Check your email to confirm your account.";
+
+});
+
+
+document.getElementById("loginForm")
+.addEventListener("submit", async function(e){
+
+  e.preventDefault();
+
+  const email =
+  document.getElementById("loginEmail").value.trim();
+
+  const password =
+  document.getElementById("loginPassword").value;
+
+  message.textContent =
+  "Logging in...";
+
+  const { data, error } =
+  await db.auth.signInWithPassword({
+    email: email,
+    password: password
+  });
+
+  if(error){
+    message.textContent =
+    error.message;
+    return;
+  }
+
+  showDashboard(data.user);
+
+});
+
+
+function showDashboard(user){
+
+  document.getElementById("account")
+  .style.display = "none";
+
+  document.getElementById("dashboard")
+  .style.display = "block";
+
+  document.getElementById("userEmail")
+  .textContent =
+  "Logged in as: " + user.email;
+
+  window.location.hash = "dashboard";
 
 }
 
-function openModal(id){
 
-  document
-    .getElementById(id)
-    .classList.add("show");
+async function logout(){
 
-}
+  await db.auth.signOut();
 
-function closeModal(id){
+  document.getElementById("dashboard")
+  .style.display = "none";
 
-  document
-    .getElementById(id)
-    .classList.remove("show");
+  document.getElementById("account")
+  .style.display = "block";
 
-}
-
-function openPlan(name,amount){
-
-  document.getElementById("planTitle")
-    .textContent = name + " Plan";
-
-  document.getElementById("planAmount")
-    .textContent = amount;
-
-  openModal("planModal");
+  message.textContent =
+  "You have been logged out.";
 
 }
 
-function demoRegister(event){
 
-  event.preventDefault();
+function selectPlan(amount){
 
-  alert(
-    "Demo registration only. A secure backend must be connected before real accounts are created."
-  );
+  document.getElementById("account")
+  .scrollIntoView({
+    behavior:"smooth"
+  });
+
+  message.textContent =
+  "Selected plan: $" + amount +
+  ". Create an account to continue.";
 
 }
 
-window.onclick = function(event){
 
-  if(event.target.classList.contains("modal")){
+db.auth.getSession()
+.then(function(result){
 
-    event.target.classList.remove("show");
+  if(result.data.session){
+
+    showDashboard(
+      result.data.session.user
+    );
 
   }
 
-};
+});
 
 </script>
 
 </body>
-  </html>
+        </html>
